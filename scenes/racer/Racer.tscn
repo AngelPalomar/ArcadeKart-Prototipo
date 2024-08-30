@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://bnqi76fflqj7x"]
+
+[ext_resource type="Script" path="res://scenes/racer/Racer.cs" id="1_qioom"]
+[ext_resource type="PackedScene" uid="uid://clru1hsvo8b5e" path="res://scenes/Car/Car.tscn" id="2_7t528"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_i1jbf"]
+bounce = 0.1
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_htakm"]
+radius = 1.0
+
+[node name="Racer" type="RigidBody3D"]
+physics_material_override = SubResource("PhysicsMaterial_i1jbf")
+gravity_scale = 3.0
+angular_damp = 10.0
+script = ExtResource("1_qioom")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_htakm")
+
+[node name="Car" parent="." instance=ExtResource("2_7t528")]
+top_level = true
+
+[node name="RayCastCar" type="RayCast3D" parent="Car"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+
+[node name="CameraController" type="Node3D" parent="Car"]
+transform = Transform3D(-1, 7.6194e-09, -8.70901e-08, 0, 0.996195, 0.0871557, 8.74228e-08, 0.0871557, -0.996195, 0, 1.74528, -2.5)
+
+[node name="CameraPivot" type="Node3D" parent="Car/CameraController"]
+
+[node name="Camera3D" type="Camera3D" parent="Car/CameraController/CameraPivot"]
+fov = 90.0
